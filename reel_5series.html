@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #e8e8e8;
+  padding: 60px 40px;
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: 900;
+  color: #333;
+  margin: 60px 0 24px;
+  padding-left: 16px;
+  border-left: 8px solid #FFE040;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.slide {
+  width: 360px;
+  height: 640px;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tri-tl {
+  position: absolute;
+  top: 0; left: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 160px 160px 0 0;
+  border-color: #FFE040 transparent transparent transparent;
+}
+.tri-br {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 0 160px 160px;
+  border-color: transparent transparent #FFE040 transparent;
+}
+
+/* アクセントカラーバリエーション */
+.slide.coral .tri-tl { border-color: #FF6B6B transparent transparent transparent; }
+.slide.coral .tri-br { border-color: transparent transparent #FF6B6B transparent; }
+.slide.coral .marker { background: #FF6B6B; color: #fff; }
+.slide.coral .step-num { background: #FF6B6B; }
+.slide.coral .cta-btn { background: #FF6B6B; color: #fff; }
+.slide.coral .warn-box { border-left: 6px solid #FF6B6B; }
+.slide.coral .warn-box p { color: #FF6B6B; }
+
+.slide.navy .tri-tl { border-color: #1E3A5F transparent transparent transparent; }
+.slide.navy .tri-br { border-color: transparent transparent #1E3A5F transparent; }
+.slide.navy .marker { background: #1E3A5F; color: #fff; }
+.slide.navy .step-num { background: #1E3A5F; color: #FFE040; }
+.slide.navy .cta-btn { background: #1E3A5F; color: #FFE040; }
+.slide.navy .warn-box { border-left: 6px solid #1E3A5F; }
+.slide.navy .warn-box p { color: #1E3A5F; }
+
+.slide.green .tri-tl { border-color: #2D8C4E transparent transparent transparent; }
+.slide.green .tri-br { border-color: transparent transparent #2D8C4E transparent; }
+.slide.green .marker { background: #2D8C4E; color: #fff; }
+.slide.green .step-num { background: #2D8C4E; }
+.slide.green .cta-btn { background: #2D8C4E; color: #fff; }
+.slide.green .warn-box { border-left: 6px solid #2D8C4E; }
+.slide.green .warn-box p { color: #2D8C4E; }
+
+.slide.purple .tri-tl { border-color: #6B46C1 transparent transparent transparent; }
+.slide.purple .tri-br { border-color: transparent transparent #6B46C1 transparent; }
+.slide.purple .marker { background: #6B46C1; color: #fff; }
+.slide.purple .step-num { background: #6B46C1; }
+.slide.purple .cta-btn { background: #6B46C1; color: #fff; }
+.slide.purple .warn-box { border-left: 6px solid #6B46C1; }
+.slide.purple .warn-box p { color: #6B46C1; }
+
+.content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 0 28px;
+  width: 100%;
+}
+
+.marker {
+  display: inline-block;
+  background: #FFE040;
+  padding: 6px 18px;
+  font-size: 19px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 18px;
+  border-radius: 3px;
+}
+
+.dots {
+  font-size: 16px;
+  color: #1a1a1a;
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.main-text {
+  font-size: 30px;
+  font-weight: 900;
+  color: #1a1a1a;
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+
+.big-num {
+  font-size: 120px;
+  font-weight: 900;
+  line-height: 1;
+  display: inline-block;
+  background: linear-gradient(180deg, #ccc 0%, #888 45%, #444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.12));
+  letter-spacing: -4px;
+}
+.big-unit {
+  font-size: 48px;
+  font-weight: 900;
+  background: linear-gradient(180deg, #bbb 0%, #777 45%, #444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  vertical-align: bottom;
+}
+
+.warn-box {
+  border-left: 6px solid #FFE040;
+  background: #fafafa;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 16px;
+  margin: 14px 0;
+  text-align: left;
+}
+.warn-box p {
+  font-size: 22px;
+  font-weight: 900;
+  color: #B8860B;
+  line-height: 1.4;
+}
+
+.sub-text {
+  font-size: 17px;
+  font-weight: 700;
+  color: #666;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+.step-list {
+  text-align: left;
+  width: 100%;
+  margin-top: 14px;
+}
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.step-num {
+  background: #FFE040;
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 900;
+  min-width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.step-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.4;
+  padding-top: 4px;
+}
+.step-foot {
+  font-size: 15px;
+  font-weight: 700;
+  color: #999;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.cta-main {
+  font-size: 40px;
+  font-weight: 900;
+  color: #1a1a1a;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.cta-sub {
+  font-size: 17px;
+  font-weight: 700;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+.cta-btn {
+  display: inline-block;
+  background: #1a1a1a;
+  color: #FFE040;
+  font-size: 18px;
+  font-weight: 900;
+  padding: 10px 28px;
+  border-radius: 40px;
+}
+
+.slide-num {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(0,0,0,0.18);
+  z-index: 20;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 本1: 退去費用 ===== -->
+<h2>本①　退去費用246,488円→0円</h2>
+<div class="row">
+
+  <div class="slide">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">1/4</span>
+    <div class="content">
+      <div class="marker">知らないと損！</div>
+      <span class="dots">・・・</span>
+      <div class="main-text">退去費用<br>246,488円の請求</div>
+      <div><span class="big-num">0</span><span class="big-unit">円</span></div>
+      <div class="sub-text">＋46,950円返金</div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">2/4</span>
+    <div class="content">
+      <div class="marker">あなたは大丈夫？</div>
+      <div class="main-text">そのまま払ったら<br>負けです</div>
+      <div class="warn-box"><p>退去費用の8割は<br>交渉で変わる</p></div>
+      <div class="sub-text">知らないだけで<br>損してる人が多すぎる</div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">3/4</span>
+    <div class="content">
+      <div class="marker">やること3つだけ</div>
+      <div class="main-text">サインする前に<br>これだけでOK</div>
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text">請求書を受け取っても即サインしない</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text">管理会社に異議を伝える</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text">ガイドラインを根拠に交渉する</div></div>
+      </div>
+      <div class="step-foot">難しい知識ゼロでOK</div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">4/4</span>
+    <div class="content">
+      <div class="marker">交渉文テンプレ込み</div>
+      <div class="cta-main">全部<br>まとめました</div>
+      <div class="cta-sub">そのまま使える交渉文も<br>noteで公開中</div>
+      <div class="cta-btn">▶ プロフのリンクへ</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== 本2: 敷金礼金ゼロ交渉 ===== -->
+<h2>本②　敷金・礼金ゼロ交渉</h2>
+<div class="row">
+
+  <div class="slide coral">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">1/4</span>
+    <div class="content">
+      <div class="marker">知らないと損！</div>
+      <span class="dots">・・・</span>
+      <div class="main-text">礼金2ヶ月分<br>216,000円</div>
+      <div><span class="big-num">0</span><span class="big-unit">円</span></div>
+      <div class="sub-text">交渉したら消えた</div>
+    </div>
+  </div>
+
+  <div class="slide coral">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">2/4</span>
+    <div class="content">
+      <div class="marker">これ、交渉できます</div>
+      <div class="main-text">礼金は<br>払わなくて<br>いい時代</div>
+      <div class="warn-box"><p>礼金ゼロ物件は<br>今や当たり前<br>言わないと損</p></div>
+      <div class="sub-text">聞くだけでタダになる</div>
+    </div>
+  </div>
+
+  <div class="slide coral">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">3/4</span>
+    <div class="content">
+      <div class="marker">言うだけでOK</div>
+      <div class="main-text">内見後に<br>この一言を言え</div>
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text">「礼金はなくせますか？」と聞く</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text">「他も検討してます」と伝える</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text">フリーレント交渉も同時にする</div></div>
+      </div>
+      <div class="step-foot">断られても失うものはゼロ</div>
+    </div>
+  </div>
+
+  <div class="slide coral">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">4/4</span>
+    <div class="content">
+      <div class="marker">内見が決まったら</div>
+      <div class="cta-main">この言葉を<br>そのまま使って</div>
+      <div class="cta-sub">「礼金はなくせますか？」<br>この一言を言うだけでいい<br>言わなきゃ損するだけ</div>
+      <div class="cta-btn">🔖 保存して使う</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== 本3: 仲介手数料交渉 ===== -->
+<h2>本③　仲介手数料は値引きできる</h2>
+<div class="row">
+
+  <div class="slide navy">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">1/4</span>
+    <div class="content">
+      <div class="marker">知らないと損！</div>
+      <span class="dots">・・・</span>
+      <div class="main-text">仲介手数料<br>108,000円</div>
+      <div><span class="big-num">半</span><span class="big-unit">額</span></div>
+      <div class="sub-text">にした話</div>
+    </div>
+  </div>
+
+  <div class="slide navy">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">2/4</span>
+    <div class="content">
+      <div class="marker">法律上は0.5ヶ月分</div>
+      <div class="main-text">1ヶ月分は<br>取りすぎです</div>
+      <div class="warn-box"><p>仲介手数料の上限は<br>家賃0.5ヶ月分<br>（法律で決まってる）</p></div>
+      <div class="sub-text">同意してるから1ヶ月取られる</div>
+    </div>
+  </div>
+
+  <div class="slide navy">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">3/4</span>
+    <div class="content">
+      <div class="marker">契約前に使える</div>
+      <div class="main-text">この順番で<br>交渉すると<br>通りやすい</div>
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text">「仲介手数料は半月分でお願いできますか」</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text">断られたら「では礼金を」と交換条件</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text">応じない業者は別を当たる</div></div>
+      </div>
+      <div class="step-foot">知識があるだけで有利になる</div>
+    </div>
+  </div>
+
+  <div class="slide navy">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">4/4</span>
+    <div class="content">
+      <div class="marker">契約前に読み返して</div>
+      <div class="cta-main">知ってるだけで<br>有利になる</div>
+      <div class="cta-sub">「半月分でお願いできますか」<br>この一言を言えるかどうかで<br>5万円変わる</div>
+      <div class="cta-btn">🔖 保存して使う</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== 本4: 火災保険の解約返戻金 ===== -->
+<h2>本④　退去時に火災保険が戻ってくる</h2>
+<div class="row">
+
+  <div class="slide green">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">1/4</span>
+    <div class="content">
+      <div class="marker">退去前に確認して！</div>
+      <span class="dots">・・・</span>
+      <div class="main-text">火災保険の<br>解約返戻金</div>
+      <div><span class="big-num">1.2</span><span class="big-unit">万円</span></div>
+      <div class="sub-text">そのまま捨ててた人続出</div>
+    </div>
+  </div>
+
+  <div class="slide green">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">2/4</span>
+    <div class="content">
+      <div class="marker">知らないと損</div>
+      <div class="main-text">退去時に<br>お金が<br>戻ってくる</div>
+      <div class="warn-box"><p>2年契約の火災保険<br>途中解約すると<br>残り分が返金される</p></div>
+      <div class="sub-text">申請しないと自動的に没収</div>
+    </div>
+  </div>
+
+  <div class="slide green">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">3/4</span>
+    <div class="content">
+      <div class="marker">退去が決まったら</div>
+      <div class="main-text">すぐやること<br>3つ</div>
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text">保険証券を探す</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text">保険会社に「解約・返戻金の確認」を連絡</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text">退去日に合わせて解約手続きをする</div></div>
+      </div>
+      <div class="step-foot">5分の電話で数万円戻る</div>
+    </div>
+  </div>
+
+  <div class="slide green">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">4/4</span>
+    <div class="content">
+      <div class="marker">退去が決まったらすぐ</div>
+      <div class="cta-main">保険証券を<br>今すぐ探して</div>
+      <div class="cta-sub">手続きしないと<br>そのまま消える<br>申請するだけで戻ってくる</div>
+      <div class="cta-btn">🔖 保存して使う</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== 本5: 引越し費用の相見積もり ===== -->
+<h2>本⑤　引越し費用を半額にする方法</h2>
+<div class="row">
+
+  <div class="slide purple">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">1/4</span>
+    <div class="content">
+      <div class="marker">知らないと損！</div>
+      <span class="dots">・・・</span>
+      <div class="main-text">引越し見積もり<br>最初：98,000円</div>
+      <div><span class="big-num">43</span><span class="big-unit">千円</span></div>
+      <div class="sub-text">まで下げた実録</div>
+    </div>
+  </div>
+
+  <div class="slide purple">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">2/4</span>
+    <div class="content">
+      <div class="marker">1社だけはNG</div>
+      <div class="main-text">引越し業者は<br>最初から<br>高く言ってくる</div>
+      <div class="warn-box"><p>相見積もりを取らないと<br>定価で払わされる<br>それが普通の状態</p></div>
+      <div class="sub-text">競合させるだけで半額になる</div>
+    </div>
+  </div>
+
+  <div class="slide purple">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">3/4</span>
+    <div class="content">
+      <div class="marker">これだけでOK</div>
+      <div class="main-text">引越し費用を<br>下げる<br>3ステップ</div>
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text">一括見積もりサイトで3社以上取る</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text">「他社は〇〇円でした」と伝える</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text">3月・9月を避けて引越し日を選ぶ</div></div>
+      </div>
+      <div class="step-foot">繁忙期を外すだけで3割下がる</div>
+    </div>
+  </div>
+
+  <div class="slide purple">
+    <div class="tri-tl"></div><div class="tri-br"></div>
+    <span class="slide-num">4/4</span>
+    <div class="content">
+      <div class="marker">業者に会う前に読んで</div>
+      <div class="cta-main">相見積もりを<br>取るだけでいい</div>
+      <div class="cta-sub">「他社は〇〇円でした」<br>この一言で<br>5万円以上下がる</div>
+      <div class="cta-btn">🔖 保存して使う</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
