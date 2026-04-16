@@ -58,13 +58,17 @@
 ### 「〇〇の記事作って」と言われたら：
 1. RESEARCH_ttkenji_v2.md のSEOキーワード設計を確認
 2. GEO対策チェックリストを参照
-3. noteテンプレート（template_note.md）の構成に従う
-4. 以下を1セットで生成：
-   - note記事（無料・導線）
-   - YouTube Shorts台本
-   - TikTok/Reels台本（YouTubeと基本同じ・調整のみ）
-   - X投稿文（140字以内）
-   - Threads投稿文（500字以内）
+3. 以下を**すべて1セットで**生成する（順番厳守・省略禁止）
+
+**1セットの内訳：**
+- note記事（本文フル）
+- YouTube Shorts台本（台本＋テロップ＋説明欄）
+- X投稿文（A. リスト型 / B. 問いかけ型 / C. コピペ用型 の3パターン）
+- Threads投稿文（ハッシュタグなし）
+- TikTok / Instagram Reelsキャプション
+- 動画生成（YAMLファイル作成 → python3 reel_pipeline.py 実行）
+
+→ note記事だけ・動画だけで終わらせない。6点すべてが完成して1セット。
 
 ### 「YouTube Shortsの台本作って」と言われたら：
 - RESEARCH_ttkenji_v2.md のセクション7を参照
